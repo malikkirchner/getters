@@ -1,0 +1,11 @@
+[package]
+name = "getters"
+version = "0.1.0"
+edition = "2024"
+description = "minimal tool to perform HTTP GET health checks"
+
+[dependencies]
+tokio = { version = "1.46.1", features = ["macros", "rt-multi-thread"] }
+reqwest = { version = "0.12.22", default-features = false, features = [
+    "default-tls",
+] }

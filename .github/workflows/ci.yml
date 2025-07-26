@@ -1,0 +1,36 @@
+name: CI (Alpine)
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  build-test:
+    name: Build and Test in Alpine
+    runs-on: ubuntu-latest
+    container:
+      image: rustlang/rust:nightly-alpine
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: apk add --no-cache musl-dev openssl-dev pkgconfig ca-certificates openssl-libs-static
+
+      - name: Install Clippy for nightly
+        run: rustup component add clippy --toolchain nightly-x86_64-unknown-linux-musl
+
+      - name: Build (debug)
+        run: cargo build --verbose
+
+      - name: Run Clippy
+        run: cargo clippy -- -D warnings
+
+      - name: Run tests
+        run: cargo test --verbose
+
+      - name: Build (release)
+        run: cargo build --release --verbose
