@@ -65,6 +65,6 @@ getters https://google.com && echo "ok" || echo "kaputt"
 
 ## Notes
 
-* Requires Rust nightly (uses `#![feature(exitcode_exit_method)]`).
+* Builds on stable Rust; the toolchain is pinned in `rust-toolchain.toml`.
 * Built on top of async Rust using Tokio and reqwest.
 * Perfect for Docker health checks, CI/CD pipelines, or lightweight uptime monitoring.
